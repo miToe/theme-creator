@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { uid } from "uid";
 import Input from "./Input";
+import "./Form.css";
 function Form({ onAddColor }) {
-  const [name, setName] = useState("e.g. Funky Rainbow Fiesta");
-  const [mainColor, setMainColor] = useState("#075a07");
-  const [contrastColor, setContrastColor] = useState("#ffffff");
+  const startMainColor = "#075a07";
+  const startContrastColor = "#ffffff";
+  const exampleText = "Funky Rainbow Fiesta";
+  const [name, setName] = useState(exampleText);
+  const [mainColor, setMainColor] = useState(startMainColor);
+  const [contrastColor, setContrastColor] = useState(startContrastColor);
 
   const handleMainColorChange = (color) => {
     setMainColor(color);
@@ -14,77 +18,70 @@ function Form({ onAddColor }) {
     setContrastColor(color);
   };
 
+  const handleFocus = (setState, initialValue) => {
+    setState(initialValue);
+  };
+
   const addColor = (event) => {
     event.preventDefault();
     const newColor = {
-      id: uid(), // Generiere eine eindeutige ID
+      id: uid(),
       role: name,
       hex: mainColor,
       contrastText: contrastColor,
     };
     onAddColor(newColor);
-    setName("");
-    setMainColor("");
-    setContrastColor("");
+    setName(exampleText);
+    setMainColor(startMainColor);
+    setContrastColor(startContrastColor);
   };
 
   return (
-    <div>
+    <div
+      className="colorForm"
+      style={{
+        background: mainColor,
+      }}
+    >
       <form onSubmit={addColor}>
-        <label htmlFor="name">Role:</label>
-        <br />
+        <label
+          htmlFor="name"
+          style={{
+            color: contrastColor,
+          }}
+        >
+          Role:
+        </label>
         <input
           type="text"
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onFocus={() => handleFocus(setName, "")}
         />
-        <br />
-        <br />
-
-        {/* <input
-          type="text"
-          id="mainColor"
-          value={mainColor}
-          onChange={(e) => setMainColor(e.target.value)}
-        />
-        <input
-          type="color"
-          value={mainColor}
-          onChange={(e) => setMainColor(e.target.value)}
-        /> */}
         <Input
           label="Main Color (Hex)"
           color={mainColor}
           setColor={handleMainColorChange}
+          labelColor={contrastColor}
+          onFocus={() => handleFocus(startMainColor, "")}
         />
-        <br />
         <Input
           label="Contrast Color (Hex)"
           color={contrastColor}
+          labelColor={contrastColor}
           setColor={handleContrastColorChange}
+          onFocus={() => handleFocus(startContrastColor, "")}
         />
-        {/* <br />
-        <br /> */}
-
-        {/* <label htmlFor="contrastColor">Contrast Color (Hex):</label>
-        <br />
-        <input
-          type="text"
-          id="contrastColor"
-          value={contrastColor}
-          onChange={(e) => setContrastColor(e.target.value)}
-        />
-        <input
-          type="color"
-          value={contrastColor}
-          onChange={(e) => setContrastColor(e.target.value)}
-        />
-        <br />
-        <br /> */}
-
         <button type="submit">Farbe hinzufügen</button>
       </form>
+      <div
+        style={{
+          color: contrastColor,
+        }}
+      >
+        {name}
+      </div>
     </div>
   );
 }

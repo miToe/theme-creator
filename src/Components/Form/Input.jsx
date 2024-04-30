@@ -1,8 +1,9 @@
-function Input({ label, color, setColor }) {
+function Input({ label, color, setColor, labelColor }) {
   return (
     <>
-      <label htmlFor={label}>{label}</label>
-      <br />
+      <label htmlFor={label} style={{ color: labelColor }}>
+        {label}
+      </label>
       <input
         type="text"
         id={label}

@@ -9,7 +9,6 @@ function App() {
   const addColor = (newColor) => {
     setColors([newColor, ...colors]);
   };
-  console.log(addColor);
   return (
     <>
       <h1>Theme Creator</h1>
