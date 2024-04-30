@@ -1,0 +1,26 @@
+.colorForm {
+  padding: 2em;
+  margin-bottom: 2em;
+  display: flex;
+}
+
+.colorForm form {
+  width: 50%;
+}
+
+.colorForm label {
+  display: block;
+}
+
+.colorForm input {
+  margin-bottom: 1em;
+}
+
+.colorForm button {
+  display: block;
+  margin-top: 0.5em;
+}
+
+.colorForm button[type="submit"] {
+  cursor: pointer;
+}
