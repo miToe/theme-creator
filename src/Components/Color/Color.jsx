@@ -1,11 +1,23 @@
 import { useState } from "react";
 import "./Color.css";
+import Form from "../Form/Form";
 
-export default function Color({ color, onDelete }) {
+export default function Color({ color, onDelete, onUpdateColor }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const [editMode, setEditMode] = useState(false);
 
   const handleDeleteClick = () => {
     setShowConfirmation(true);
+  };
+
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
+  const handleUpdateColor = (updatedColor) => {
+    onUpdateColor(color.id, updatedColor);
+    setEditMode(false);
   };
 
   const handleConfirmationDelete = () => {
@@ -15,6 +27,10 @@ export default function Color({ color, onDelete }) {
 
   const handleCancelDelete = () => {
     setShowConfirmation(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditMode(false);
   };
 
   return (
@@ -37,7 +53,23 @@ export default function Color({ color, onDelete }) {
           <button onClick={handleCancelDelete}>No</button>
         </div>
       ) : (
-        <button onClick={handleDeleteClick}>Delete</button>
+        <>
+          <button onClick={handleDeleteClick}>Delete</button>
+          <button onClick={handleEditClick}>Edit</button>
+        </>
+      )}
+
+      {editMode && (
+        <>
+          <Form
+            onAddColor={handleUpdateColor}
+            defaultName={color.role}
+            defaultMainColor={color.hex}
+            defaultContrastColor={color.contrastText}
+            buttonText="Update Color"
+          />
+          {editMode && <button onClick={handleCancelEdit}>Cancel Edit</button>}
+        </>
       )}
     </div>
   );
