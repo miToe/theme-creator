@@ -2,13 +2,27 @@ import { useState } from "react";
 import { uid } from "uid";
 import Input from "./Input";
 import "./Form.css";
-function Form({ onAddColor }) {
+function Form({
+  onAddColor,
+  defaultName,
+  defaultMainColor,
+  defaultContrastColor,
+  buttonText,
+}) {
   const startMainColor = "#075a07";
   const startContrastColor = "#ffffff";
   const exampleText = "Funky Rainbow Fiesta";
-  const [name, setName] = useState(exampleText);
-  const [mainColor, setMainColor] = useState(startMainColor);
-  const [contrastColor, setContrastColor] = useState(startContrastColor);
+  // const [name, setName] = useState(exampleText);
+  // const [mainColor, setMainColor] = useState(startMainColor);
+  // const [contrastColor, setContrastColor] = useState(startContrastColor);
+
+  const [name, setName] = useState(defaultName || exampleText);
+  const [mainColor, setMainColor] = useState(
+    defaultMainColor || startMainColor
+  );
+  const [contrastColor, setContrastColor] = useState(
+    defaultContrastColor || startContrastColor
+  );
 
   const handleMainColorChange = (color) => {
     setMainColor(color);
@@ -73,7 +87,7 @@ function Form({ onAddColor }) {
           setColor={handleContrastColorChange}
           onFocus={() => handleFocus(startContrastColor, "")}
         />
-        <button type="submit">Farbe hinzufügen</button>
+        <button type="submit">{buttonText || "Add Color"}</button>
       </form>
       <div
         style={{
