@@ -26,12 +26,6 @@ function App() {
     setColors(colors.filter((color) => color.id !== colorId));
   };
 
-  const handleUpdateColor = (colorId, updatedColor) => {
-    setColors(
-      colors.map((color) => (color.id === colorId ? updatedColor : color))
-    );
-  };
-
   return (
     <>
       <h1>Theme Creator</h1>
