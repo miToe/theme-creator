@@ -6,16 +6,28 @@ import { useState } from "react";
 
 function App() {
   const [colors, setColors] = useState(initialColors);
+
   const addColor = (newColor) => {
     setColors([newColor, ...colors]);
   };
+
+  const handleDeleteColor = (colorId) => {
+    const updateColors = colors.filter((color) => color.id !== colorId);
+    setColors(updateColors);
+  };
+
   return (
     <>
       <h1>Theme Creator</h1>
       <Form onAddColor={addColor} />
-      {colors.map((color) => {
-        return <Color key={color.id} color={color} />;
-      })}
+
+      {colors.length === 0 ? (
+        <p>No colors... start by adding one!</p>
+      ) : (
+        colors.map((color) => (
+          <Color key={color.id} color={color} onDelete={handleDeleteColor} />
+        ))
+      )}
     </>
   );
 }
