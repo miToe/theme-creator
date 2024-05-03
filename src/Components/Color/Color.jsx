@@ -42,7 +42,8 @@ export default function Color({ color, onDelete, onUpdateColor }) {
         color: color.contrastText,
       }}
     >
-      <h3 className="color-card-headline">{color.hex}</h3>
+      <h3 className="color-card-headline">{color.hex}</h3>{" "}
+      <CopyToClipboard hex={color.hex} />
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
       {showConfirmation ? (
@@ -72,7 +73,6 @@ export default function Color({ color, onDelete, onUpdateColor }) {
           {editMode && <button onClick={handleCancelEdit}>Cancel Edit</button>}
         </>
       )}
-      <CopyToClipboard hex={color.hex} />
     </div>
   );
 }
