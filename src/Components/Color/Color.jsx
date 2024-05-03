@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Color.css";
 import Form from "../Form/Form";
+import CopyToClipboard from "../CopyToClipboard/CopyToClipboard";
 
 export default function Color({ color, onDelete, onUpdateColor }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -58,7 +59,6 @@ export default function Color({ color, onDelete, onUpdateColor }) {
           <button onClick={handleEditClick}>Edit</button>
         </>
       )}
-
       {editMode && (
         <>
           <Form
@@ -68,9 +68,11 @@ export default function Color({ color, onDelete, onUpdateColor }) {
             defaultContrastColor={color.contrastText}
             buttonText="Update Color"
           />
+
           {editMode && <button onClick={handleCancelEdit}>Cancel Edit</button>}
         </>
       )}
+      <CopyToClipboard hex={color.hex} />
     </div>
   );
 }
